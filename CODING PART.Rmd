@@ -1,0 +1,103 @@
+#### In this Analyze Phase, we can look into the codeing part which is perfomred in R.
+
+
+#### Enviroment setup in R:
+
+    - Install required packages and library for getting tweets form TWITTER and special function to perform sentimental analysis
+
+
+```{r Install packages}
+
+# Install require packages 
+
+install.packages("twitteR")
+install.packages("tidyverse")
+install.packages("plyr")
+install.packages("ROAuth")
+install.packages("RCurl")
+
+# Load Respective packages
+
+library(twitteR)
+library(purrr)
+library(dplyr)
+library(ROAuth)
+library(RCurl)
+require('ROAuth')
+require('RCurl')
+library(plyr)
+library(stringr)
+
+# Load positive and negative words
+
+positive.words = scan('C:/TWITTER/p_words.txt',what='character',comment.char=';') 
+negative.words = scan('C:/TWITTER/n_words.txt',what='character',comment.char=';')
+
+#Initiate sentiment functions
+
+score.sentiment<- function(sentences, pos.words, neg.words, .progress='none')
+{
+  require(plyr)
+  require(stringr)
+  scores <- laply(sentences, function(sentence, pos.words, neg.words)
+  {
+  
+    sentence <- gsub('[[:punct:]]', "", sentence)   #subs punctions with the null space 
+    sentence <- gsub('[[:cntrl:]]', "", sentence)   #subs controll words with the null space 
+    sentence <- gsub('\\d+', "", sentence)          #subs digits with null space
+    sentence <- tolower(sentence)                   #converts sentence into lower cases
+    word.list <- str_split(sentence, '\\s+')        #split the sentence into words
+    words <- unlist(word.list)                      # list of words into vector
+    pos.matches <- match(words, pos.words)          #compare every owrds with positive words
+    neg.matches <- match(words, neg.words)	        #comapre every words with negative words
+    pos.matches <- !is.na(pos.matches)              # give logical value if not NA
+    neg.matches <- !is.na(neg.matches)              # give logical value if not NA
+    score <- sum(pos.matches) - sum(neg.matches)    #final summary of words
+    return(score)                                   #diplay score
+  } 
+  , pos.words, neg.words, .progress=.progress)
+  scores.df <- data.frame(score=scores, text=sentences)
+  return(scores.df)
+}
+
+# Get twitter access and retrive tweets for analysis
+
+
+consumerKey <- "z076Jk9i4XOSWCx9FegWUm4CJ"
+  reqURL <- "https://api.twitter.com/oauth/request-token"
+  accessURL <- "https://api.twitter.com/oauth/access_token"
+  authURL <- "https://api.twitter.com/oauth/authorize"
+  consumerSecret <- "eR7jyZi9ziSEhfkheSjtNeceoTHPaHgdlSxEihTjQ3rBhJVg8tcQFAF" # I duplicate these keys
+  accessToken <- "119103810257153240320-LQuBff0Nb99mxj0ewEPjgu7paNZ2idOP"
+  accessTokenSecret <- "526z4In4653enLujS8hkslnsWvUASS13DnXdvy2lFdmuPrnddnB5whnJhJH"
+  twitCred <- OAuthFactory$new(consumerKey=consumerKey,
+                               consumerSecret=consumerSecret,
+                               requestURL=reqURL,
+                               accessURL=accessURL,
+                               authURL=authURL)
+
+setup_twitter_oauth(consumerKey,consumerSecret,accessToken,accessTokenSecret)
+tweet1 <- userTimeline("@barcalona",n=100)
+tweet2 <- userTimeline("@realmadriden",n=100)
+
+
+
+# set a data frames for tweets
+
+tweet_df <- tbl_df(map_df(tweet1,as.data.frame))
+tweet2_df <- tbl_df(map_df(tweet2,as.data.frame))
+
+
+# All Set , let we do analaysis then!!
+
+bscore <- score.sentiment(tweet_df$text,postive.words,negative.words,.progress='text')  # refers BARCELONA
+rscore <- score.sentiment(tweet2_df$text, postive.words,negtive.words,.progress='text') # refers REAL MADRID
+
+ 
+#Results are displaed in Histogram format
+
+hist(rscore$score)
+hist(bscore$score)
+
+
+
