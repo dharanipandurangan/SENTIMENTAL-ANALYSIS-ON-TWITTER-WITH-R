@@ -30,8 +30,8 @@ library(stringr)
 
 # Load positive and negative words
 
-positive.words = scan('C:/TWITTER/p_words.txt',what='character',comment.char=';') 
-negative.words = scan('C:/TWITTER/n_words.txt',what='character',comment.char=';')
+pos.words = scan('C:/TWITTER/p_words.txt',what='character',comment.char=';') 
+neg.words = scan('C:/TWITTER/n_words.txt',what='character',comment.char=';')
 
 #Initiate sentiment functions
 
@@ -90,8 +90,8 @@ tweet2_df <- tbl_df(map_df(tweet2,as.data.frame))
 
 # All Set , let we do analaysis then!!
 
-bscore <- score.sentiment(tweet_df$text,postive.words,negative.words,.progress='text')  # refers BARCELONA
-rscore <- score.sentiment(tweet2_df$text, postive.words,negtive.words,.progress='text') # refers REAL MADRID
+bscore <- score.sentiment(tweet_df$text,pos.words,neg.words,.progress='text')  # refers BARCELONA
+rscore <- score.sentiment(tweet2_df$text,pos.words,neg.words,.progress='text') # refers REAL MADRID
 
  
 #Results are displaed in Histogram format
