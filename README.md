@@ -9,6 +9,9 @@ We are required to design a system to analyze customer opinions from Twitter, a 
 
 Social media, as a platform for socializing and communicating, has evolved greatly over the past decade. It now serves as a medium for people to express their views, displeasure, and appreciation to people and companies about their services and products. Because of this openness and ease of sharing feedback, companies target social media to understand their customers better. This project will help students understand how consumer sentiment extracted from tweets and can be used to generate insights regarding the opinion on comparision between REAL MADRID AND BARCELONA and getting who hass more postive tweets.
 
+![maxresdefault](https://user-images.githubusercontent.com/86598565/126030208-8f55f21e-0ad3-4c8c-8d77-24890c3f8976.jpg)
+
+
 ### TWITTER
 
   Twitter is a micro-blogging platform where users can post their messages as tweets and read others messages or tweets on a single page in reverse chronology or timeline. By default, all tweets are publicly visible unless users tweak their privacy settings. Because of constraints on the length of tweets, Twitter follows a few conventions to enable its users to add a structure to their tweets. For example, the @symbol is used to refer to other users in tweets and the #symbol is used to categorize tweets.
