@@ -5,7 +5,7 @@
 
 
 
-We are required to design a system to analyze customer opinions from Twitter, a platform to express their own views and opinions. The system consists of two main modules to generate insights from tweets posted by consumers and sentiment score. We use the product domain of e-commerce websites in our case study.
+We are required to design a system to analyze fans opinions from Twitter, a platform to express their own views and opinions. The system consists of two main modules to generate insights from tweets posted by consumers and sentiment score. We use the product domain of e-commerce websites in our case study.
 
 Social media, as a platform for socializing and communicating, has evolved greatly over the past decade. It now serves as a medium for people to express their views, displeasure, and appreciation to people and companies about their services and products. Because of this openness and ease of sharing feedback, companies target social media to understand their customers better. This project will help students understand how consumer sentiment extracted from tweets and can be used to generate insights regarding the opinion on comparision between REAL MADRID AND BARCELONA and getting who hass more postive tweets.
 
